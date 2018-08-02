@@ -1,0 +1,80 @@
+# Cloud Config Server Deployment
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: study-config-server
+  labels:
+    app: study-config-server
+spec:
+  selector:
+    matchLabels:
+      app: study-config-server
+      tier: cloud-config-server
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: study-config-server
+        tier: cloud-config-server
+    spec:
+      containers:
+      - image: jorgelciandt/study-config-server
+        name: study-config-server
+        ports:
+        - containerPort: 9090
+          name: config
+---
+# Cloud Eureka Server Deployment
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: study-eureka-server
+  labels:
+    app: study-eureka-server
+spec:
+  selector:
+    matchLabels:
+      app: study-eureka-server
+      tier: cloud-eureka-server
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: study-eureka-server
+        tier: cloud-eureka-server
+    spec:
+      containers:
+      - image: jorgelciandt/study-eureka-server
+        name: study-eureka-server
+        ports:
+        - containerPort: 9091
+          name: eureka
+---
+# Company Service Deployment
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: study-company-service
+  labels:
+    app: study-company-service
+spec:
+  selector:
+    matchLabels:
+      app: study-company-service
+      tier: cloud-company-service
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: study-company-service
+        tier: cloud-company-service
+    spec:
+      containers:
+      - image: jorgelciandt/study-company-service
+        name: study-company-service
+        ports:
+        - containerPort: 9093
+          name: company

@@ -1,0 +1,30 @@
+# Cloud Eureka Server Deployment
+apiVersion: apps/v1beta2 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: study-eureka-server
+  labels:
+    app: study-eureka-server
+spec:
+  selector:
+    matchLabels:
+      app: study-eureka-server
+      tier: cloud-eureka-server
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: study-eureka-server
+        tier: cloud-eureka-server
+    spec:
+      containers:
+      - image: jorgelciandt/study-eureka-server
+        name: study-eureka-server
+        ports:
+        - containerPort: 9091
+          name: eureka
+        resources:
+          requests:
+            cpu: 200m
+            memory: 500Mi

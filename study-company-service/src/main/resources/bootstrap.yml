@@ -1,0 +1,7 @@
+
+spring:
+  application:
+    name: study-company-service
+  cloud:
+    config:
+      uri: http://study-config-server:9090

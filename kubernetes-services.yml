@@ -1,0 +1,46 @@
+# Cloud Config Server 
+apiVersion: v1beta2
+kind: Service
+metadata:
+  name: study-config-server
+  labels:
+    app: study-config-server
+spec:
+  ports:
+  - name: config
+    port: 9090
+  selector:
+    app: study-config-server
+---
+# Cloud Eureka Server
+apiVersion: v1beta2
+kind: Service
+metadata:
+  name: study-eureka-server
+  labels:
+    app: study-eureka-server
+spec:
+  ports:
+  - name: "9091"
+    port: 9091
+    targetPort: 8080
+  selector:
+    app: study-eureka-server
+  type: NodePort
+---
+# Company service
+apiVersion: v1beta2
+kind: Service
+metadata:
+  name: study-company-service
+  labels:
+    app: study-company-service
+spec:
+  ports:
+  - name: "9093"
+    port: 9093
+    targetPort: 8080
+  selector:
+    app: study-company-service
+  type: NodePort
+

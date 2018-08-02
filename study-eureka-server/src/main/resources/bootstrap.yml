@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: study-eureka-server
+  cloud:
+    config:
+      uri: http://study-config-server:9090

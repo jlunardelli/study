@@ -1,0 +1,30 @@
+# Cloud Config Server Deployment
+apiVersion: apps/v1beta2 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: study-config-server
+  labels:
+    app: study-config-server
+spec:
+  selector:
+    matchLabels:
+      app: study-config-server
+      tier: cloud-config-server
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: study-config-server
+        tier: cloud-config-server
+    spec:
+      containers:
+      - image: jorgelciandt/study-config-server
+        name: study-config-server
+        ports:
+        - containerPort: 9090
+          name: config
+        resources:
+          requests:
+            cpu: 200m
+            memory: 500Mi
